@@ -1,0 +1,27 @@
+<h2 class="text-center text-secondary mt-4">Share your thoughts and dreams...</h2>
+
+<form action="/create_post" method="post">
+  <div class="col-8 mb-2 mx-auto">
+    <label for="author">Author:</label>
+    <div>
+      <input type="text" class="form-control" id="author" name="author" placeholder="Enter Author..."></input>
+    </div>
+  </div>
+  <div class="col-8 mb-2 mx-auto">
+    <label for="title">Title:</label>
+    <div>
+      <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title..."></input>
+    </div>
+  </div>
+  <div class="col-8 mb-2 mx-auto">
+    <label for="post_body">Post:</label>
+    <div>
+      <textarea id="post_body" class="form-control" rows="5" name="post_body"></textarea>
+    </div>
+  </div>
+  <div class="col-8 mb-2 pb-2 mx-auto">
+    <div>
+      <button type="submit" id="create_post" class="btn btn-primary mb-2 float-right">Create Post</input>
+    </div>
+  </div>
+</form>

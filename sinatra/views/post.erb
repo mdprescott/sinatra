@@ -1,0 +1,107 @@
+<div class="card mx-auto mt-3 mb-3 posts" style="width: 75%;">
+  <div class="card-header pt-1.5 pb-1.5">
+    <h4 class="card-title text-center text-dark mb-0"><%= @post.title %></h4>
+  </div>
+  <div class="card-body pt-0 pb-0 bg-transparent">
+    <small class="card-subtitle text-center text-secondary"><%= "#{@post.month} #{@post.day}, #{@post.year} - #{@post.author}" %></small>
+    <div class="text-dark bg-light rounded mb-0 mt-2">
+      <p class="card-body ml-4 mr-4"><%= @post.body %></p>
+    </div>
+    <div class="form-inline">
+      <form class="pb-2" action="/edit_post/<%= @post.id %>">
+        <div class="ml-2 mt-0 mb-0">
+          <button type="submit" id="edit_post" class="btn btn-outline-secondary btn-sm">Edit Post</input>
+        </div>
+      </form>
+      <form class="pb-2" action="/posts/<%= @post.id %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <div class="ml-2 mt-0 mb-0">
+          <button type="submit" id="delete_post" class="btn btn-outline-danger btn-sm">Delete Post</input>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="card mx-auto mt-3 mb-3 posts" style="width: 50%;">
+  <div class="card-header pt-1 pb-1">
+    <h6 class="card-title text-dark mb-0">Comments:</h6>
+  </div>
+  <div class="card-body pt-2 pb-2">
+    <%
+      DB = Sequel.connect('sqlite://db/app.db')
+      comments = DB[:comments]
+      post_comments = comments.select(:id).where(posts_id: @post.id)
+      if post_comments.count == 0
+    %>
+    <div class="mx-auto text-center text-secondary">
+      <small>Nothing here yet. Be the first to comment!</small>
+    </div>
+    <%
+      else
+      max_id = post_comments.order(:id).last[:id]
+      variable = max_id
+      loop do
+        comment_id = post_comments.where(:id => variable).get(:id)
+        unless comment_id.nil?
+        @comment = Comment.find(comment_id)
+    %>
+          <div class="container mb-0" style="height: 75%;">
+            <div class="row">
+              <div class="col-10 align-self-start mx-auto pt-0">
+                <small class="card-subtitle text-center text-secondary pb-0"><%= "#{@comment.month} #{@comment.day}, #{@comment.year} - #{@comment.author} says..." %></small>
+              </div>
+              <div class="col-sm-1 mx-0 px-0 text-center" style="font-size: 1em">
+                <form action="/posts/<%= @post.id %>/<%= @comment.id %>">
+                  <div>
+                    <button type="submit" id=edit_comment class="btn btn-link text-secondary" style="font-size: .75em">edit</button>
+                  </div>
+                </form>
+              </div>
+              <div class="col-sm-1 px-0 text-center" style="font-size: 1em">
+                <form action="/posts/<%= @post.id %>/<%= @comment.id %>" method="post">
+                  <input type="hidden" name="_method" value="delete">
+                    <div>
+                      <button type="submit" id=delete_comment class="btn btn-link text-danger" style="font-size: .75em">delete</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="ml-4 mt-0 mb-2" style="width: 90%;">
+            <small class="card-body"><%= @comment.body %></small>
+          </div>
+    <%
+          end
+          variable -= 1
+          break if variable == 0
+        end
+      end
+    %>
+  </div>
+  <div class="card mx-auto mt-3 mb-3" style="width: 80%;">
+    <div class="card-header pt-1 pb-1">
+      <small class="card-title text-dark mb-0">Leave A Comment:</small>
+    </div>
+    <div class="card-body px-0 pt-0 pb-0">
+      <form action="/posts/<%= @post.id %>/create_comment" method="post">
+        <div class="col mb-2 mx-auto">
+          <label for="author"><small>Name:</small></label>
+          <div>
+            <input type="text" class="form-control form-control-sm" id="author" name="author" placeholder="Enter Name..."></input>
+          </div>
+        </div>
+        <div class="col mb-2 mx-auto">
+          <label for="comment_body"><small>Comment:</small></label>
+          <div>
+            <textarea id="comment_body" class="form-control form-control-sm" rows="2" name="comment_body"></textarea>
+          </div>
+        </div>
+        <div class="col mb-2 pb-2 mx-auto">
+          <div>
+            <button type="submit" id="create_comment" class="btn btn-primary btn-sm mb-2 float-right">Comment</input>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

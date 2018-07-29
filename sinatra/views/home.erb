@@ -1,0 +1,45 @@
+<h2 class="text-center text-secondary mt-4">Blog.Spot<h2>
+<h6 class="text-center text-muted mt-4"><em>A shining example of delusional incoherency...</em></h6>
+<h6 class="text-center text-muted mb-4"><em>Feel free to contribute below</em></h6>
+<div class="mt-4 mb-4">
+  <form action="/write_post">
+    <div class="mx-auto text-center">
+      <button type="submit" id="write_post" class="btn btn-primary btn-lg">Ramble on, my wayward son</input>
+    </div>
+  </form>
+</div>
+
+<div><!-- posts -->
+<%
+  DB = Sequel.connect('sqlite://db/app.db')
+  posts = DB[:posts]
+  variable = 0
+  unless posts.count == 0
+    loop do
+      post_row = posts.order(:created_at).last[:id]
+      post_row = post_row - variable
+      @post = Post.find(post_row)
+      variable += 1
+      break if variable == 9 || @post.nil?
+%>
+
+<a class="nohov" href="/posts/<%= @post.id %>">
+  <div class="card mx-auto mt-3 mb-3" style="width: 75%;">
+    <div class="card-header pt-1.5 pb-1.5">
+      <h4 class="card-title text-center text-dark mb-0"><%= @post.title %></h4>
+    </div>
+    <div class="card-body pt-0">
+      <small class="card-subtitle text-center text-secondary"><%= "#{@post.month} #{@post.day}, #{@post.year} - #{@post.author}"%></small>
+      <div class="text-dark bg-light rounded mb-0 mt-2">
+        <p class="card-body ml-4 mr-4"><%= @post.body %></p>
+      </div>
+    </div>
+  </div>
+</a>
+
+<%
+    end
+  end
+%>
+
+</div><!-- posts -->

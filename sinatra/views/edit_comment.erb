@@ -1,0 +1,29 @@
+<h3 class="text-center text-secondary mt-4 mb-4"><em>Tell us how you <b>really</b> feel...</em></h3>
+
+<div class="card mx-auto mt-3 mb-3" style="width: 80%;">
+  <div class="card-header pt-1 pb-1">
+    <p class="card-title text-dark mb-0">Edit Comment:</p>
+  </div>
+  <div class="card-body px-0 pt-0 pb-0">
+    <form action="/posts/<%= @post.id %>/<%= @comment.id %>" method="post">
+      <input type="hidden" name="_method" value="put">
+      <div class="col mb-2 mx-auto">
+        <label for="author"><small>Name:</small></label>
+        <div>
+          <textarea type="text" class="form-control form-control-sm" id="author" name="author" rows="1" placeholder="Edit Author..."><%= @comment.author %></textarea>
+        </div>
+      </div>
+      <div class="col mb-2 mx-auto">
+        <label for="comment_body"><small>Comment:</small></label>
+        <div>
+          <textarea id="comment_body" class="form-control form-control-sm" rows="2" name="comment_body"><%= @comment.body %></textarea>
+        </div>
+      </div>
+      <div class="col mb-2 pb-2 mx-auto">
+        <div>
+          <button type="submit" id="edit_comment" class="btn btn-primary btn-sm mb-2 float-right">Update</input>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

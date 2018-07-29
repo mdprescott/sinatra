@@ -1,0 +1,95 @@
+body, html {
+    height: 100%;
+}
+
+.bg-img {
+    background: url(img/citylights2.JPG);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-hd {
+    background: url(img/citylights2.JPG);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.ft-m {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.nav {
+    display:table;
+    width: 65%;
+    margin: auto;
+}
+ .nav a {
+    float:none;
+    display:table-cell;
+    text-align:center;
+}
+
+.bg-blue {
+  background-color: #eff9ff;
+}
+
+.contact {
+  display: block;
+  min-height: 20px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  /* padding: 0 0 0 30px;
+  margin: 0 0 10px; */
+}
+
+.nohov {
+  text-decoration: none !important;
+}
+
+#wrap {
+    min-height: 90%;
+    height: auto !important;
+    margin: 0 auto 0 auto;
+}
+
+#footer {
+    max-height: 10%;
+    margin: 0 auto 0 auto
+}
+
+.img {
+  max-height: 300px
+}
+
+
+/* Responsive Header Adjustments */
+
+@media (max-width: 837px) {
+
+  .mh {
+    font-size: 4em;
+  }
+
+}
+
+@media (max-width: 767px) {
+
+  .mh {
+    font-size: 3em;
+  }
+
+}
+
+@media (max-width: 575px) {
+
+  .mh {
+    font-size: 2em;
+  }
+
+  .posts {
+    width: 90% !important;
+  }
+}
